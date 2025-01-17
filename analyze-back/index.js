@@ -55,7 +55,7 @@ async function analyzeSentiment(comment, retries = 3, delay = 2000) {
       Analyze if the following YouTube comment agrees or disagrees with the video content, or is neutral.
       Consider:
       - Comments that express support, agreement, or positive feedback should be marked as AGREE
-      - Comments that criticize, object, or express negative opinions should be marked as DISAGREE
+      - Comments that criticize, object ,reject, hate,disrespects,objectifies,discriminates , or express negative opinions should be marked as DISAGREE
       - Comments that are neutral, factual, or unrelated should be marked as NEUTRAL
       
       Comment: "${comment}"
@@ -82,8 +82,8 @@ async function analyzeSentiment(comment, retries = 3, delay = 2000) {
 }
 
 function fallbackSentimentAnalysis(comment) {
-  const positiveWords = ["good", "great", "awesome", "love", "like"];
-  const negativeWords = ["bad", "terrible", "hate", "dislike", "awful"];
+  const positiveWords = ["good", "great", "awesome", "love", "like","cool","nice","amazing","fantastic","excellent","best","beautiful","wonderful","perfect"];
+  const negativeWords = ["bad", "terrible", "hate", "dislike", "awful","gross","cringe","disgusting","horrible","worst","sucks","stupid","trash"];
 
   const lowerCaseComment = comment.toLowerCase();
   const positiveCount = positiveWords.filter((word) =>
@@ -107,6 +107,7 @@ async function rateLimiter(comments) {
         comment.snippet.topLevelComment.snippet.textDisplay
       );
       sentiments.push(sentiment);
+      console.log(sentiments)
     } catch (error) {
       console.error("Error in sentiment analysis:", error);
       sentiments.push("neutral"); 
@@ -168,6 +169,7 @@ app.post("/api/analyze", async (req, res) => {
   try {
     const { url } = req.body;
     const videoId = extractVideoId(url);
+    console.log(videoId)
 
     if (!videoId) {
       return res.status(400).json({ error: "Invalid YouTube URL" });
@@ -187,6 +189,7 @@ app.post("/api/analyze", async (req, res) => {
 
     const comments = response.data.items;
     const sentiments = await rateLimiter(comments);
+    console.log(sentiments)
 
     const analysisResults = {
       agree: 0,
