@@ -13,7 +13,7 @@ const InputPage = () => {
   const handleAnalyze = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${process.env.VITE_API_URL}/api/analyze`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const InputPage = () => {
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
             YouTube Comment Analyzer
-            <a href="">
+            <a href="https://github.com/mohakksingh/youtube-analyzer">
               <Github size={24} color="white"></Github>
             </a>
             <p className="text-sm text-gray-500 mt-2">
