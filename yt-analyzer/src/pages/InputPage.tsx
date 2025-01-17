@@ -13,7 +13,7 @@ const InputPage = () => {
   const handleAnalyze = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:3001/api/analyze", {
+      const response = await fetch(`${process.env.VITE_API_URL}/api/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
