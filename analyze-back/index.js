@@ -16,7 +16,7 @@ app.use(
 );
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const model = genAI.getGenerativeModel({ model: "gemini-1.0-pro" });
 
 const youtube = google.youtube({
   version: "v3",
@@ -31,10 +31,10 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Failed to connect to MongoDB:", err));
 
-// Define Comment Schema
+
 const commentSchema = new mongoose.Schema({
   videoId: String,
-  commentId: String, // Unique identifier for the comment
+  commentId: String,
   maskedUsername: String,
   comment: String,
   sentiment: String,
