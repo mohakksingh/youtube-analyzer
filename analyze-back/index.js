@@ -107,7 +107,6 @@ async function rateLimiter(comments) {
         comment.snippet.topLevelComment.snippet.textDisplay
       );
       sentiments.push(sentiment);
-      console.log(sentiments)
     } catch (error) {
       console.error("Error in sentiment analysis:", error);
       sentiments.push("neutral"); 
@@ -169,7 +168,6 @@ app.post("/api/analyze", async (req, res) => {
   try {
     const { url } = req.body;
     const videoId = extractVideoId(url);
-    console.log(videoId)
 
     if (!videoId) {
       return res.status(400).json({ error: "Invalid YouTube URL" });
@@ -189,7 +187,6 @@ app.post("/api/analyze", async (req, res) => {
 
     const comments = response.data.items;
     const sentiments = await rateLimiter(comments);
-    console.log(sentiments)
 
     const analysisResults = {
       agree: 0,
